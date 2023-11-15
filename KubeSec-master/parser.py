@@ -14,6 +14,14 @@ import pathlib as pl
 import re
 import subprocess
 import os
+import logging
+
+def createLoggerObj():
+    fileName  = '2023-11-15.log'
+    formatStr = '%(asctime)s %(message)s'
+    logging.basicConfig(format=formatStr, filename=fileName, level=logging.INFO)
+    myLogObj = logging.getLogger('sqa2023-logger')
+    return myLogObj
 
 #update basepath
 base_path = r" "
@@ -133,31 +141,39 @@ def checkIfValidHelm(path_script):
     return val_ret
 
 def readYAMLAsStr( path_script ):
+    logger = createLoggerObj()
     yaml_as_str = constants.YAML_SKIPPING_TEXT
     with open( path_script , constants.FILE_READ_FLAG) as file_:
         yaml_as_str = file_.read()
+        logger.info(f'Results of opening yaml file{yaml_as_str}')
     return yaml_as_str
 
 # This function checks whether our parser throws an exception for reading the YAML file. 
 def checkParseError( path_script ):
+    logger = createLoggerObj()
     flag = True
     with open(path_script, constants.FILE_READ_FLAG) as yml:
         yaml = ruamel.yaml.YAML()
+        logger.info(f'Results of opening yaml file {yaml}')
         try:
             for dictionary in yaml.load_all(yml):
                 pass
         except ruamel.yaml.parser.ParserError as parse_error:
             flag = False
+            logger.info(f'Error in parsing yaml file {parse_error}')
             print(constants.YAML_SKIPPING_TEXT)           
         except ruamel.yaml.error.YAMLError as exc:
             flag = False
+            logger.info(f'Error in parsing yaml file {exc}')
             print( constants.YAML_SKIPPING_TEXT  )    
         except UnicodeDecodeError as err_: 
             flag = False
+            logger.info(f'Error in parsing yaml file {err_}')
             print( constants.YAML_SKIPPING_TEXT  )
     return flag
 
 def loadMultiYAML( script_ ):
+    logger = createLoggerObj()
     dicts2ret = []  
     with open(script_, constants.FILE_READ_FLAG  ) as yml_content :
         yaml = ruamel.yaml.YAML()
@@ -168,10 +184,13 @@ def loadMultiYAML( script_ ):
                 # print(d_)
                 dicts2ret.append( d_ )
         except ruamel.yaml.parser.ParserError as parse_error:
+            logger.info(f'Error in parsing yaml file {parse_error}')
             print(constants.YAML_SKIPPING_TEXT)           
         except ruamel.yaml.error.YAMLError as exc:
+            logger.info(f'Error in parsing yaml file {exc}')
             print( constants.YAML_SKIPPING_TEXT  )    
         except UnicodeDecodeError as err_: 
+            logger.info(f'Error in parsing yaml file {err_}')
             print( constants.YAML_SKIPPING_TEXT  )
         
         path = find_json_path_keys(dicts2ret)
@@ -200,11 +219,13 @@ def loadMultiYAML( script_ ):
 
 
 def count_initial_comment_line (filepath):
+    logger = createLoggerObj()
     initial_comment_line = 0
     comment_found = False
     # calculates initial line before the comments begin in the file such as empty lines, '---'
     with open(filepath, constants.FILE_READ_FLAG  ) as yamlfile :       
         textfile = yamlfile.read()
+        logger.info(f'Results of opening yaml file {textfile}')
         for line in textfile.split('\n'):
             if line.startswith('#'):
                 comment_found = True

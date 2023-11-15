@@ -18,13 +18,13 @@ import random
 
 - `vault server -dev` 
 
-4. Keep an eye on the output of `vault server -dev` . From the output we will use `address` and `token` 
+4. Keep an eye on the output of ~ . From the output we will use `address` and `token` 
 
 5. `pip install hvac`
 '''
 
 counter_mapper           = {}
-hvac_token               = "hvs.xRb0L1LOaYB5DTCf1eISCHb1" ## this should come from the output of *vault server -dev* 
+hvac_token               = "hvs.45T33J6467wGkcYtqprlU0px" ## this should come from the output of *vault server -dev* 
 hvac_url                 = "http://127.0.0.1:8200"        ## this should come from the output of *vault server -dev*
 ansible_secret_retrieval = '"{{ lookup(' + "'hashi_vault', 'secret="  
 puppet_secret_retrieval  = "Deferred('vault_lookup::lookup', ["  

@@ -7,6 +7,14 @@ import constants
 import parser 
 import os 
 from itertools import combinations
+import logging
+
+def createLoggerObj(): 
+    fileName  = '2023-11-15.log'
+    formatStr = '%(asctime)s %(message)s'
+    logging.basicConfig(format=formatStr, filename=fileName, level=logging.INFO)
+    myLogObj = logging.getLogger('sqa2023-logger') 
+    return myLogObj
 
 def getYAMLFiles(path_to_dir):
     valid_  = [] 
@@ -117,9 +125,11 @@ def getSHFiles(path_to_dir):
 
 
 def readBashAsStr( path_sh_script ):
+    logger = createLoggerObj()
     _as_str = constants.YAML_SKIPPING_TEXT
     with open( path_sh_script , constants.FILE_READ_FLAG) as file_:
         _as_str = file_.read()
+        logger.info(f'Results from reading shell script: {_as_str}')
     return _as_str
 
 def getTaintsFromConfigMaps( script_path ):
