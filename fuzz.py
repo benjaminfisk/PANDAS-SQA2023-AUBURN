@@ -4,7 +4,7 @@ November 27, 2023
 Fuzz testing for some functions in parser.py
 '''
 
-import Project.parser as parser
+import parser
 
 def fuzzValues():
     input_list = ['test', 1, {2,3}, (4,5)]
