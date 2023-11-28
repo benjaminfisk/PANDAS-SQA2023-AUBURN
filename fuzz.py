@@ -4,7 +4,7 @@ November 27, 2023
 Fuzz testing for some functions in parser.py
 '''
 
-import parser
+import project.KubeSec-master.parser as parser
 
 def fuzzValues():
     input_list = ['test', 1, {2,3}, (4,5)]
