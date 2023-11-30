@@ -9,6 +9,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@main
-      
+
       - name: Run Fuzzing Analysis
-        run: python fuzz.py
+        run: python KubeSec-master/fuzz.py
