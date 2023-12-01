@@ -33,6 +33,6 @@ Output/screenshot
 
 Here are our main takeaways from the term project:
 
-- Lesson
-- Lesson
-- Lesson
+- Throughout the course, we learned about automation for software development and analysis, software fuzzing, and software forensics during class and with the workshops. Applying these topics to the term project was interesting, as we saw how a software developer or cybersecurity professional might use a combination of these practices for an elaborate project.
+- Since our group was not from a cybersecurity background, we relied on communication and transparency with one another to grasp each of our activity topics. However, practicing effective collaboration was a rewarding experience.
+- Although this speaks more to the individual part of the project, our group found the value in automated cybersecurity tools. We learned how hard-coded secrets can pose a real danger in the world of technology. It is incredibly important to develop secure, quality software.
