@@ -16,17 +16,18 @@ Step | Task                                                                     
 
 ### Git Hook
 
-For this task, we created a **[hook](hooks/pre-commit)** that runs bandit on repository and all of its folders recursively. The hook then pipes the output to a **[csv file](bandit_results.csv)** A sample of the csv file is shown below.<br>
+For this task, we created a **[hook](hooks/pre-commit)** that runs bandit on repository and all of its folders recursively. The hook then pipes the output to a **[csv file](bandit_results.csv)** A sample of this csv file is shown below.<br>
 ![](bandit_results.png)
 
 ### Fuzzing
 
-For this task, we created a **[workflow](.github/workflows/software-fuzzing.yaml)** for github actions that runs a **[fuzz file](KubeSec-master/fuzz.py)**. This python file creates some simple inputs and uses them to test some methods in the **[parser](KubeSec-master/parser.py)** file. The results of these tests are printed in the action as can be seen in this **[screenshot]**.<br>
-![](fuzzing.png)
+For this task, we created a **[workflow](.github/workflows/software-fuzzing.yaml)** for github actions that runs a **[fuzz file](KubeSec-master/fuzz.py)**. This python file creates some simple inputs and uses them to test some methods in the **[parser](KubeSec-master/parser.py)** file. The results of these tests are printed in the action as is shown below.<br>
+![](fuzzing_results.png)
 
 ### Forensics
 
-For this task, we modified 5 methods in the **[graphtaint](KubeSec-master/graphtaint.py)** file to output data about these methods to a **[log file](2023-12-1.log)**.<br>
+For this task, we modified 5 methods in the **[graphtaint](KubeSec-master/graphtaint.py)** file to output data about these methods to a **[log file](2023-12-1.log)** A sample of this file is shown below.<br>
+![](forensics_results.png)
 
 ## Lessons Learned
 
