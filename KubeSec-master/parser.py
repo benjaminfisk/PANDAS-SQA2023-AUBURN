@@ -17,7 +17,7 @@ import os
 import logging
 
 def createLoggerObj():
-    fileName  = '2023-11-15.log'
+    fileName  = '2023-12-1.log'
     formatStr = '%(asctime)s %(message)s'
     logging.basicConfig(format=formatStr, filename=fileName, level=logging.INFO)
     myLogObj = logging.getLogger('sqa2023-logger')

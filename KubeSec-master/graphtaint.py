@@ -10,20 +10,26 @@ from itertools import combinations
 import logging
 
 def createLoggerObj(): 
-    fileName  = '2023-11-15.log'
+    fileName  = '2023-12-1.log'
     formatStr = '%(asctime)s %(message)s'
     logging.basicConfig(format=formatStr, filename=fileName, level=logging.INFO)
     myLogObj = logging.getLogger('sqa2023-logger') 
     return myLogObj
 
 def getYAMLFiles(path_to_dir):
+    logger = createLoggerObj()
     valid_  = [] 
+    flag = True
     for root_, dirs, files_ in os.walk( path_to_dir ):
        for file_ in files_:
            full_p_file = os.path.join(root_, file_)
            if(os.path.exists(full_p_file)):
              if (full_p_file.endswith( constants.YAML_EXTENSION  ) or full_p_file.endswith( constants.YML_EXTENSION  )  ):
                valid_.append(full_p_file)
+               logger.info(f'Successfully retrieved YAML file: {full_p_file}')
+               flag = False
+    if flag:
+        logger.info(f'No YAML file found in directory: {path_to_dir}')
     return valid_ 
 
 def constructHelmString(hiera_tuple): 
@@ -34,11 +40,17 @@ def constructHelmString(hiera_tuple):
     return str2ret 
 
 def getHelmTemplateContent( templ_dir ):
+    logger = createLoggerObj()
     template_content_dict = {}
     template_yaml_files =  getYAMLFiles( templ_dir )
+    flag = True
     for template_yaml_file in template_yaml_files:
         value_as_str      = parser.readYAMLAsStr( template_yaml_file )
         template_content_dict[template_yaml_file] = value_as_str
+        logger.info(f'Successfully retrieved template file: {value_as_str}')
+        flag = False
+    if flag:
+        logger.info(f'No template file found in directory: {templ_dir}')
     return template_content_dict 
 
 
@@ -114,13 +126,19 @@ def mineSecretGraph( path2script, yaml_dict , secret_dict ):
 
 
 def getSHFiles(path_to_dir):
+    logger = createLoggerObj()
     valid_  = [] 
     for root_, _, files_ in os.walk( path_to_dir ):
        for file_ in files_:
+           flag = True
            full_p_file = os.path.join(root_, file_)
            if(os.path.exists(full_p_file)):
              if (full_p_file.endswith( constants.SH_EXTENSION  )  ):
                valid_.append(full_p_file)
+               logger.info(f'Successfully retrieved shell script file: {full_p_file}')
+               flag = False
+       if flag:
+              logger.info(f'No shell script file found in directory: {path_to_dir}')
     return valid_ 
 
 
@@ -129,20 +147,26 @@ def readBashAsStr( path_sh_script ):
     _as_str = constants.YAML_SKIPPING_TEXT
     with open( path_sh_script , constants.FILE_READ_FLAG) as file_:
         _as_str = file_.read()
-        logger.info(f'Results from reading shell script: {_as_str}')
+        logger.info(f'Successfully read shell script: {_as_str}')
     return _as_str
 
 def getTaintsFromConfigMaps( script_path ):
+    logger = createLoggerObj()
     list2Return = [] 
     config_map_dir  = os.path.dirname( script_path )  + constants.SLASH_SYMBOL    
     script_name     = script_path.replace( config_map_dir, constants.YAML_SKIPPING_TEXT )
     sh_files = getSHFiles( config_map_dir )
+    flag = True
     for sh_file in sh_files:
         sh_content = readBashAsStr( sh_file )
         if script_name in sh_content:
             sh_match_cnt  = sh_content.count( script_name )
             for l_ in range( sh_match_cnt ):
                 list2Return.append(  sh_file  )
+                logger.info(f'Successfully retrieved taint: {sh_file}')
+                flag = False
+    if flag:
+        logger.info(f'No taint found in directory: {config_map_dir}')
     return list2Return
     
 
@@ -216,4 +240,9 @@ def mineNetPolGraph( script_, dict_y, src_val, src_keys ):
     return lis2ret 
 
 
-# if __name__=='__main__':
+if __name__=='__main__':
+    test_artifacts_path = r'project/KubeSec-master/TEST_ARTIFACTS'
+    yaml_files = getYAMLFiles(test_artifacts_path)
+    helm_template_content = getHelmTemplateContent(test_artifacts_path)
+    sh_files = getSHFiles(test_artifacts_path)
+    taints_from_config_maps = getTaintsFromConfigMaps(test_artifacts_path)
