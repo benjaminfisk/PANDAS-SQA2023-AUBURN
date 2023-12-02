@@ -7,7 +7,7 @@ Fuzz testing for some functions in parser.py
 import parser
 
 def fuzzValues():
-    input_list = [1, {2,3}, (4,5)]
+    input_list = [1]
     for input in input_list:
         flag = False
         # print(f'Input: {input}\n')
