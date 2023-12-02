@@ -14,19 +14,19 @@ def fuzzValues():
             # print(f'Input: {input}\n')
             
             try:
-                parser.checkIfValidHelm(input)
+                parser.checkIfValidHelm(1)
             except Exception as e:
                 print(f'Input for checkIfValidHelm was invalid.\n Error: {e}\n')
                 f.write(f'Input for checkIfValidHelm was invalid.\n Error: {e}\n')
                 flag = True
             try:
-                parser.readYAMLAsStr(input)
+                parser.readYAMLAsStr('input')
             except Exception as e:
                 print(f'Input for checkIfValidK8SYaml was invalid.\n Error: {e}\n')
                 f.write(f'Input for checkIfValidK8SYaml was invalid.\n Error: {e}\n')
                 flag = True
             try:
-                parser.checkIfWeirdYAML(input)
+                parser.checkIfWeirdYAML(1)
             except Exception as e:
                 print(f'Input for checkIfWeirdYAML was invalid.\n Error: {e}\n')
                 f.write(f'Input for checkIfWeirdYAML was invalid.\n Error: {e}\n')
