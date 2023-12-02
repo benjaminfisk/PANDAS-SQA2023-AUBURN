@@ -38,4 +38,5 @@ def fuzzValues():
         if not flag:
             print(f'Input {input} was valid for all functions.\n')
 
-fuzzValues()
+if __name__ == '__main__':
+    fuzzValues()
