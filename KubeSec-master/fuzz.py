@@ -12,10 +12,10 @@ def fuzzValues():
         flag = False
         print(f'Input: {input}\n')
         
-        # try:
-        #     parser.checkIfValidHelm(input)
-        # except Exception as e:
-        #     print(f'Input for checkIfValidHelm was invalid.\n Error: {e}\n')
+        try:
+            parser.checkIfValidHelm(input)
+        except Exception as e:
+            print(f'Input for checkIfValidHelm was invalid.\n Error: {e}\n')
         #     flag = True
         # try:
         #     parser.checkIfValidK8SYaml(input)
