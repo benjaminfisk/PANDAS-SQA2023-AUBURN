@@ -150,25 +150,20 @@ def readYAMLAsStr( path_script ):
 
 # This function checks whether our parser throws an exception for reading the YAML file. 
 def checkParseError( path_script ):
-    logger = createLoggerObj()
     flag = True
     with open(path_script, constants.FILE_READ_FLAG) as yml:
         yaml = ruamel.yaml.YAML()
-        logger.info(f'Results of opening yaml file {yaml}')
         try:
             for dictionary in yaml.load_all(yml):
                 pass
         except ruamel.yaml.parser.ParserError as parse_error:
             flag = False
-            logger.info(f'Error in parsing yaml file {parse_error}')
             print(constants.YAML_SKIPPING_TEXT)           
         except ruamel.yaml.error.YAMLError as exc:
             flag = False
-            logger.info(f'Error in parsing yaml file {exc}')
             print( constants.YAML_SKIPPING_TEXT  )    
         except UnicodeDecodeError as err_: 
             flag = False
-            logger.info(f'Error in parsing yaml file {err_}')
             print( constants.YAML_SKIPPING_TEXT  )
     return flag
 
