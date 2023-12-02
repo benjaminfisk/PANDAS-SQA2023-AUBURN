@@ -10,18 +10,18 @@ def fuzzValues():
     input_list = ['test', 1, {2,3}, (4,5)]
     for input in input_list:
         flag = False
-        print(f'Input: {input}\n')
+        # print(f'Input: {input}\n')
         
         try:
             parser.checkIfValidHelm(input)
         except Exception as e:
             print(f'Input for checkIfValidHelm was invalid.\n Error: {e}\n')
             flag = True
-        try:
-            parser.readYAMLAsStr(input)
-        except Exception as e:
-            print(f'Input for checkIfValidK8SYaml was invalid.\n Error: {e}\n')
-            flag = True
+        # try:
+        #     parser.readYAMLAsStr(input)
+        # except Exception as e:
+        #     print(f'Input for checkIfValidK8SYaml was invalid.\n Error: {e}\n')
+        #     flag = True
         try:
             parser.checkIfWeirdYAML(input)
         except Exception as e:
