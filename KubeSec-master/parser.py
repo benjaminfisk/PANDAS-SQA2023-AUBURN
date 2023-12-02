@@ -214,13 +214,11 @@ def loadMultiYAML( script_ ):
 
 
 def count_initial_comment_line (filepath):
-    logger = createLoggerObj()
     initial_comment_line = 0
     comment_found = False
     # calculates initial line before the comments begin in the file such as empty lines, '---'
     with open(filepath, constants.FILE_READ_FLAG  ) as yamlfile :       
         textfile = yamlfile.read()
-        logger.info(f'Results of opening yaml file {textfile}')
         for line in textfile.split('\n'):
             if line.startswith('#'):
                 comment_found = True
